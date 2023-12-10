@@ -52,7 +52,7 @@
                     output.innerHTML += `<br><strong>Response from broker service:</strong> ${data.message}\n`
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => output += `<br><br><strong>Error from broker service:</strong> ${error}<br>`)
         })
     </script>
 {{end}}
