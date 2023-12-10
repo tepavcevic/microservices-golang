@@ -10,8 +10,8 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		render(w, "test.page.gohtml")
 	})
-	fmt.Println("Listening on port 8080...")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	fmt.Println("Listening on port 3000...")
+	if err := http.ListenAndServe(":3000", nil); err != nil {
 		panic(err)
 	}
 
