@@ -5,16 +5,14 @@
 		},
 		{
 			"path": "front-end"
-<<<<<<< Updated upstream
-=======
+
 		},
 		{
 			"path": "broker-service"
 		},
 		{
 			"path": "project"
->>>>>>> Stashed changes
-		}
+		},
 	],
 	"settings": {}
 }
