@@ -35,5 +35,5 @@ func (app *Config) Authenticate(w http.ResponseWriter, r *http.Request) {
 		Data:    user,
 	}
 
-	app.writeJSON(w, r, http.StatusOK, payload)
+	app.writeJSON(w, r, http.StatusAccepted, payload)
 }
