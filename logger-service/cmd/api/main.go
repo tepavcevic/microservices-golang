@@ -46,15 +46,12 @@ func main() {
 		Models: data.New(client),
 	}
 
-	go app.serve()
-}
-
-func (app *Config) serve() {
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
 	}
 
+	log.Println("startting service on post", webPort)
 	if err := srv.ListenAndServe(); err != nil {
 		panic(err)
 	}
