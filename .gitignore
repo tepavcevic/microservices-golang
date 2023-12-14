@@ -8,9 +8,12 @@
 *.so
 *.dylib
 
+/project/db-data
+
 brokerApp
 frontApp
 authApp
+loggerServiceApp
 
 # Test binary, built with `go test -c`
 *.test
