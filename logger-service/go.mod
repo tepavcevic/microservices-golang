@@ -2,7 +2,11 @@ module github.com/tepavcevic/microservices-golang/logger
 
 go 1.21.1
 
-require go.mongodb.org/mongo-driver v1.13.1
+require (
+	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/cors v1.2.1
+	go.mongodb.org/mongo-driver v1.13.1
+)
 
 require (
 	github.com/golang/snappy v0.0.1 // indirect
