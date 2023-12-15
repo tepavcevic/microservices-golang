@@ -14,6 +14,7 @@ brokerApp
 frontApp
 authApp
 loggerServiceApp
+mailerApp
 
 # Test binary, built with `go test -c`
 *.test
