@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/rpc"
 
 	"github.com/tepavcevic/microservices-golang/broker/event"
 )
@@ -59,7 +60,8 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 		app.authenticate(w, r, requestPayload.Auth)
 	case "log":
 		// app.logItem(w, r, requestPayload.Log)
-		app.logEventViaRabbit(w, r, requestPayload.Log)
+		// app.logEventViaRabbit(w, r, requestPayload.Log)
+		app.logItemViaRPC(w, r, requestPayload.Log)
 	case "mail":
 		app.mail(w, r, requestPayload.Mail)
 	default:
@@ -211,4 +213,35 @@ func (app *Config) pushToQueue(name, msg string) error {
 	}
 
 	return nil
+}
+
+type RPCPayload struct {
+	Name string
+	Data string
+}
+
+func (app *Config) logItemViaRPC(w http.ResponseWriter, r *http.Request, l LogPayload) {
+	client, err := rpc.Dial("tcp", "logger-service:5001")
+	if err != nil {
+		app.errorJSON(w, r, err)
+		return
+	}
+
+	rpcPayload := RPCPayload{
+		Name: l.Name,
+		Data: l.Data,
+	}
+
+	var result string
+	if err := client.Call("RPCServer.LogInfo", rpcPayload, &result); err != nil {
+		app.errorJSON(w, r, err)
+		return
+	}
+
+	payload := jsonResponse{
+		Error:   false,
+		Message: result,
+	}
+
+	app.writeJSON(w, r, http.StatusAccepted, payload)
 }
