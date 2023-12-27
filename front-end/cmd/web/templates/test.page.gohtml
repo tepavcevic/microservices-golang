@@ -16,6 +16,8 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-sm btn-outline-danger mt-2" type="button" onclick="clearOutput()">Clear Output</button>
+
         <div class="row">
             <div class="col">
                 <h4 class="mt-5">Sent</h4>
@@ -67,20 +69,20 @@
                 sent.innerHTML = JSON.stringify(payload, null, 4);
                 received.innerHTML = JSON.stringify(data, null, 4);
                 if (data.error) {
-                    output.innerHTML += `<br><strong>Error:</strong>${data.message}<br>`;
+                    output.innerHTML += `<br><strong>Error:</strong>${data.message}`;
                 } else {
-                    output.innerHTML += `<br><strong>Response from logger service:</strong> ${data.message}<br>`
+                    output.innerHTML += `<br><strong>Response from logger service:</strong> ${data.message}`
                 }
             })
-            .catch(error => output += `<br><br><strong>Error:</strong> ${error}<br>`)
+            .catch(error => output += `<br><strong>Error:</strong> ${error}`)
         })
 
         mailBtn.addEventListener("click", () => {
             const payload = {
                 action: "mail",
                 mail: {
-                    from: "Djordje",
-                    to: "Jon",
+                    from: "Djordje@gmail.com",
+                    to: "Jon@jon.ba",
                     subject: "work mail",
                     message: "great job Jon!",
                 }
@@ -101,12 +103,12 @@
                 sent.innerHTML = JSON.stringify(payload, null, 4);
                 received.innerHTML = JSON.stringify(data, null, 4);
                 if (data.error) {
-                    output.innerHTML += `<br><strong>Error:</strong>${data.message}<br>`;
+                    output.innerHTML += `<br><strong>Error:</strong>${data.message}`;
                 } else {
-                    output.innerHTML += `<br><strong>Response from mail service: </strong>${data.message}<br>`
+                    output.innerHTML += `<br><strong>Response from mail service: </strong>${data.message}`
                 }
             })
-            .catch(error => output += `<br><br><strong>Error: </strong>${error}<br>`)
+            .catch(error => output += `<br><strong>Error: </strong>${error}`)
         })
 
         authBrokerBtn.addEventListener("click", () => {
@@ -133,12 +135,12 @@
                 sent.innerHTML = JSON.stringify(payload, null, 4);
                 received.innerHTML = JSON.stringify(data, null, 4);
                 if (data.error) {
-                    output.innerHTML += `<br><strong>Error:</strong>${data.message}<br>`;
+                    output.innerHTML += `<br><strong>Error:</strong>${data.message}`;
                 } else {
-                    output.innerHTML += `<br><strong>Response from auth via broker service:</strong> ${data.message}<br>`
+                    output.innerHTML += `<br><strong>Response from auth via broker service:</strong> ${data.message}`
                 }
             })
-            .catch(error => output += `<br><br><strong>Error:</strong> ${error}<br>`)
+            .catch(error => output += `<br><strong>Error:</strong> ${error}`)
         })
 
         brokerBtn.addEventListener("click", () => {
@@ -153,10 +155,14 @@
                 if (data.error) {
                     console.log(data.message)
                 } else {
-                    output.innerHTML += `<br><strong>Response from broker service:</strong> ${data.message}\n`
+                    output.innerHTML += `<br><strong>Response from broker service:</strong> ${data.message}`
                 }
             })
-            .catch(error => output += `<br><br><strong>Error from broker service:</strong> ${error}<br>`)
+            .catch(error => output += `<br><strong>Error from broker service:</strong> ${error}`)
         })
+
+        function clearOutput() {
+            output.innerHTML = "Output shows here..."
+        }
     </script>
 {{end}}
