@@ -37,7 +37,7 @@ func (app *Config) Broker(w http.ResponseWriter, r *http.Request) {
 		Message: "Broker working great!",
 	}
 
-	err := app.writeJSON(w, r, http.StatusOK, payload)
+	err := app.writeJSON(w, r, http.StatusAccepted, payload)
 
 	if err != nil {
 		_ = app.errorJSON(w, r, err)

@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"html/template"
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/vanng822/go-premailer/premailer"
@@ -92,16 +94,21 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 }
 
 func (m *Mail) buildHTMLMsg(msg Message) (string, error) {
-	templateToRender := "./templates/mail.html.gohtml"
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
 
-	t, err := template.New("email-html").ParseFiles(templateToRender)
+	templateToRender := filepath.Join(cwd, "templates")
+
+	t, err := template.New("email-html").ParseFiles(filepath.Join(templateToRender, "mail.html.gohtml"))
 	if err != nil {
 		return "", err
 	}
 
 	var tpl bytes.Buffer
 	if err := t.ExecuteTemplate(&tpl, "body", msg.DataMap); err != nil {
-		return "", nil
+		return "", err
 	}
 
 	formattedMsg := tpl.String()
@@ -135,9 +142,14 @@ func (m *Mail) inlineCSS(s string) (string, error) {
 }
 
 func (m *Mail) buildPlainTextMsg(msg Message) (string, error) {
-	templateToRender := "./templates/mail.plain.gohtml"
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
 
-	t, err := template.New("email-plain").ParseFiles(templateToRender)
+	templateToRender := filepath.Join(cwd, "templates")
+
+	t, err := template.New("email-plain").ParseFiles(filepath.Join(templateToRender, "mail.plain.gohtml"))
 	if err != nil {
 		return "", err
 	}
